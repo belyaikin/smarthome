@@ -19,4 +19,17 @@ public class DeviceService {
     public List<Device> getAll() {
         return repository.findAll();
     }
+
+    public Device get(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    public String operate(Long id) {
+        Device device = repository.findById(id).orElseThrow();
+
+        String onOperateMessage = device.operate();
+        repository.save(device);
+
+        return onOperateMessage;
+    }
 }

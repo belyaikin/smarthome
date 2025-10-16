@@ -6,14 +6,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.polyubomu.smarthome.device.TurnableDevice;
+import me.polyubomu.smarthome.device.EnableableDevice;
 
 @Entity
 @Table(name="thermostats")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Thermostat extends TurnableDevice {
+public class Thermostat extends EnableableDevice {
     @Column
     private float temperature;
 

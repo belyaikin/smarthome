@@ -3,20 +3,22 @@ package me.polyubomu.smarthome.device.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import me.polyubomu.smarthome.device.TurnableDevice;
+import lombok.Setter;
+import me.polyubomu.smarthome.device.EnableableDevice;
 
 @Entity
 @Table(name = "lightbulbs")
 @NoArgsConstructor
-public class Lightbulb extends TurnableDevice {
+@Getter
+@Setter
+public class Lightbulb extends EnableableDevice {
     @Column
-    public String color;
+    private String color;
 
     @Column
-    public float brightness;
+    private float brightness;
 
     public Lightbulb(String color, float brightness) {
         this.color = color;

@@ -1,7 +1,8 @@
-package me.polyubomu.smarthome.shell;
+package me.polyubomu.smarthome.controller;
 
 import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
+import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
 import me.polyubomu.smarthome.room.entity.Room;
 import me.polyubomu.smarthome.service.DeviceService;
@@ -12,7 +13,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 @ShellComponent
-public class SmarthomeCommands {
+public class SmarthomeController {
     @Autowired
     private DeviceService deviceService;
 
@@ -68,26 +69,30 @@ public class SmarthomeCommands {
         switch (type.toLowerCase()) {
             case "lightbulb":
                 device = new Lightbulb("White", 10.0f);
-
-                device.setName(name);
-                device.setRoom(roomService.get(roomId));
-
-                deviceService.add(device);
                 break;
             case "thermostat":
                 device = new Thermostat();
-
-                device.setName(name);
-                device.setRoom(roomService.get(roomId));
-
-                deviceService.add(device);
+                break;
+            case "camera":
+                device = new SecurityCamera();
                 break;
             default:
                 return "Invalid type";
         }
+
+        device.setName(name);
+        device.setRoom(roomService.get(roomId));
+
+        deviceService.add(device);
+
         return "Successfully added device "
                 + device.getName()
                 + " with ID "
                 + device.getId();
+    }
+
+    @ShellMethod
+    public String operate(@ShellOption Long id) {
+        return id + ": " + deviceService.operate(id);
     }
 }
