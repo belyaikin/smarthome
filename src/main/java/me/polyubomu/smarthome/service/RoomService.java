@@ -16,6 +16,10 @@ public class RoomService {
         return repository.findAll();
     }
 
+    public Room get(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
     public void add(String name) {
         Room room = new Room();
         room.setName(name);

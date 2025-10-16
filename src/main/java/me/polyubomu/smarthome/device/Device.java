@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.polyubomu.smarthome.room.entity.Room;
 
-@MappedSuperclass
-@Data
+@Entity
+@Table(name = "devices")
+@Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor
+@Getter
+@Setter
 public abstract class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

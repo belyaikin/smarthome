@@ -1,5 +1,8 @@
 package me.polyubomu.smarthome.shell;
 
+import me.polyubomu.smarthome.device.Device;
+import me.polyubomu.smarthome.device.entity.Lightbulb;
+import me.polyubomu.smarthome.device.entity.Thermostat;
 import me.polyubomu.smarthome.room.entity.Room;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
@@ -37,6 +40,54 @@ public class SmarthomeCommands {
     public String addRoom(@ShellOption String name) {
         roomService.add(name);
 
-        return "Created new room with name " + name;
+        return "Successfully created new room '" + name + "'";
+    }
+
+    @ShellMethod(key = "devices")
+    public String allDevices() {
+        System.out.println("All devices:\n");
+
+        StringBuilder devices = new StringBuilder();
+
+        for (Device device : deviceService.getAll()) {
+            devices
+                    .append(device.getId())
+                    .append(": ")
+                    .append(device.getName())
+                    .append(" -> ").append(device.getRoom().getName())
+                    .append("\n");
+        }
+
+        return devices.toString();
+    }
+
+    @ShellMethod(key = "add-device")
+    public String addDevice(@ShellOption String type, @ShellOption String name, @ShellOption Long roomId) {
+        Device device;
+
+        switch (type.toLowerCase()) {
+            case "lightbulb":
+                device = new Lightbulb("White", 10.0f);
+
+                device.setName(name);
+                device.setRoom(roomService.get(roomId));
+
+                deviceService.add(device);
+                break;
+            case "thermostat":
+                device = new Thermostat();
+
+                device.setName(name);
+                device.setRoom(roomService.get(roomId));
+
+                deviceService.add(device);
+                break;
+            default:
+                return "Invalid type";
+        }
+        return "Successfully added device "
+                + device.getName()
+                + " with ID "
+                + device.getId();
     }
 }

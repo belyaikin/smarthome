@@ -1,9 +1,9 @@
 package me.polyubomu.smarthome.device;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Inheritance;
 import jakarta.persistence.MappedSuperclass;
 
-@MappedSuperclass
 public abstract class TurnableDevice extends Device {
     @Column
     private boolean enabled;
