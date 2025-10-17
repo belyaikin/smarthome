@@ -4,6 +4,7 @@ import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
+import me.polyubomu.smarthome.device.factory.DeviceFactory;
 import me.polyubomu.smarthome.room.entity.Room;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
@@ -64,22 +65,7 @@ public class SmarthomeController {
 
     @ShellMethod(key = "add-device")
     public String addDevice(@ShellOption String type, @ShellOption String name, @ShellOption Long roomId) {
-        Device device;
-
-        switch (type.toLowerCase()) {
-            case "lightbulb":
-                device = new Lightbulb("White", 10.0f);
-                break;
-            case "thermostat":
-                device = new Thermostat();
-                break;
-            case "camera":
-                device = new SecurityCamera();
-                break;
-            default:
-                return "Invalid type";
-        }
-
+        Device device = DeviceFactory.createDevice(type);
         device.setName(name);
         device.setRoom(roomService.get(roomId));
 
