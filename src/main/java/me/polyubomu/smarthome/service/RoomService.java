@@ -20,10 +20,10 @@ public class RoomService {
         return repository.findById(id).orElseThrow();
     }
 
-    public void add(String name) {
+    public Room add(String name) {
         Room room = new Room();
         room.setName(name);
 
-        repository.save(room);
+        return repository.save(room);
     }
 }

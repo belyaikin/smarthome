@@ -9,11 +9,11 @@ import me.polyubomu.smarthome.device.EnableableDevice;
 public class SecurityCamera extends EnableableDevice {
     @Override
     protected String getEnabledMessage() {
-        return "Enabled security camera";
+        return "Enabled security camera in room " + getRoom();
     }
 
     @Override
     protected String getDisabledMessage() {
-        return "Disabled security camera";
+        return "Disabled security camera in room " + getRoom();
     }
 }

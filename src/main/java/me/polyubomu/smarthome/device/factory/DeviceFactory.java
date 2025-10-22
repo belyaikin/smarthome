@@ -5,7 +5,7 @@ import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
 
-public class DeviceFactory {
+public final class DeviceFactory {
     public static Device createDevice(String type) {
         return switch (type.toLowerCase()) {
             case "lightbulb" -> new Lightbulb("White", 10.0f);

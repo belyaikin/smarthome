@@ -6,18 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DeviceService {
     @Autowired
     private DeviceRepository repository;
 
-    public <T extends Device> T add(T device) {
+    public Device add(Device device) {
         return repository.save(device);
     }
 
     public List<Device> getAll() {
         return repository.findAll();
+    }
+
+    public List<Device> getAll(Long roomId) {
+        return repository.findAll()
+                .stream()
+                .filter(
+                device -> Objects.equals(device.getRoom().getId(), roomId))
+                .toList();
     }
 
     public Device get(Long id) {
