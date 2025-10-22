@@ -13,7 +13,7 @@ public class DeviceService {
     @Autowired
     private DeviceRepository repository;
 
-    public Device add(Device device) {
+    public Device saveOrUpdate(Device device) {
         return repository.save(device);
     }
 

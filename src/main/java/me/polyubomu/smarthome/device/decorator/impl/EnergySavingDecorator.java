@@ -5,7 +5,7 @@ import me.polyubomu.smarthome.device.decorator.DeviceDecorator;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
 
 public final class EnergySavingDecorator extends DeviceDecorator {
-    protected EnergySavingDecorator(Device device) {
+    public EnergySavingDecorator(Device device) {
         super(device);
     }
 

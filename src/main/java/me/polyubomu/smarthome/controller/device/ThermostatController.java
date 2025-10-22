@@ -23,7 +23,7 @@ public final class ThermostatController {
 
         thermostat.setTemperature(newTemperature);
 
-        service.add(thermostat);
+        service.saveOrUpdate(thermostat);
 
         return thermostat.getName()
                 + "'s new temperature is "

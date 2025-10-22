@@ -62,7 +62,7 @@ public final class DeviceController {
         device.setName(name);
         device.setRoom(roomService.get(roomId));
 
-        final Device createdDevice = deviceService.add(device);
+        final Device createdDevice = deviceService.saveOrUpdate(device);
 
         return "Successfully added device "
                 + createdDevice.getName()

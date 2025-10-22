@@ -23,7 +23,7 @@ public final class LightbulbController {
 
         lightbulb.setColor(newColor);
 
-        service.add(lightbulb);
+        service.saveOrUpdate(lightbulb);
 
         return lightbulb.getName()
                 + "'s new color is "

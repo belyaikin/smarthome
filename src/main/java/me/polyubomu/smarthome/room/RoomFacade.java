@@ -5,6 +5,7 @@ import me.polyubomu.smarthome.device.EnableableDevice;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
+import me.polyubomu.smarthome.device.entity.Thermostat;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,24 +55,31 @@ public class RoomFacade {
 
         activateSecuritySystem(disabledDevices);
 
-        enabledDevices.forEach(device -> deviceService.add(device));
-        disabledDevices.forEach(device -> deviceService.add(device));
+        enabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
+        disabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
     }
 
     public void activateNightMode(Long roomId) {
         List<Device> enabledDevices = getDevicesInRoom(roomId, true);
         List<Device> disabledDevices = getDevicesInRoom(roomId, false);
 
+        List<Device> allDevices = getDevicesInRoom(roomId);
+
         activateSecuritySystem(disabledDevices);
 
         for (Device device : enabledDevices) {
-            if (device instanceof Lightbulb) {
+            if (device instanceof Lightbulb)
                 device.operate();
-            }
         }
 
-        enabledDevices.forEach(device -> deviceService.add(device));
-        disabledDevices.forEach(device -> deviceService.add(device));
+        for (Device device : allDevices) {
+            if (device instanceof Thermostat)
+                ((Thermostat) device).setTemperature(20f);
+        }
+
+        enabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
+        disabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
+        allDevices.forEach(device -> deviceService.saveOrUpdate(device));
     }
 
     public void activatePartyMode(Long roomId, String music) {
@@ -101,8 +109,8 @@ public class RoomFacade {
         lightbulbs
                 .forEach(device -> ((Lightbulb) device).setBrightness(1f));
 
-        disabledMusicPlayers.forEach(musicPlayer -> deviceService.add(musicPlayer));
-        enabledMusicPlayers.forEach(musicPlayer -> deviceService.add(musicPlayer));
-        lightbulbs.forEach(lightbulb -> deviceService.add(lightbulb));
+        disabledMusicPlayers.forEach(musicPlayer -> deviceService.saveOrUpdate(musicPlayer));
+        enabledMusicPlayers.forEach(musicPlayer -> deviceService.saveOrUpdate(musicPlayer));
+        lightbulbs.forEach(lightbulb -> deviceService.saveOrUpdate(lightbulb));
     }
 }

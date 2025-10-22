@@ -4,7 +4,7 @@ import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.decorator.DeviceDecorator;
 
 public final class RemoteAccessDecorator extends DeviceDecorator {
-    protected RemoteAccessDecorator(Device device) {
+    public RemoteAccessDecorator(Device device) {
         super(device);
     }
 
