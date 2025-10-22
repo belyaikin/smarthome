@@ -29,4 +29,23 @@ public final class LightbulbController {
                 + "'s new color is "
                 + lightbulb.getColor();
     }
+
+    @ShellMethod(
+            key = "set-brightness",
+            value = "Changes the lightbulb's brightness"
+    )
+    public String setBrightness(
+            @ShellOption(help = "Lightbulb's ID") Long id,
+            @ShellOption(help = "Lightbulb's brightness") float brightness
+    ) {
+        Lightbulb lightbulb = (Lightbulb) service.get(id);
+
+        lightbulb.setBrightness(brightness);
+
+        service.saveOrUpdate(lightbulb);
+
+        return lightbulb.getName()
+                + "'s new brightness is "
+                + lightbulb.getBrightness();
+    }
 }
