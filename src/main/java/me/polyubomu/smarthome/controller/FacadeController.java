@@ -13,7 +13,19 @@ public final class FacadeController {
 
     @ShellMethod
     public String activateNightMode(@ShellOption Long roomId) {
-        facade.activateNightMove(roomId);
+        facade.activateNightMode(roomId);
         return "Activated night mode in room " + roomId;
+    }
+
+    @ShellMethod
+    public String activateStandaloneMode() {
+        facade.activateStandaloneMode();
+        return "Activated standalone mode";
+    }
+
+    @ShellMethod
+    public String activatePartyMode(@ShellOption Long roomId, @ShellOption String music) {
+        facade.activatePartyMode(roomId, music);
+        return "Activated party mode in room " + roomId;
     }
 }
