@@ -2,6 +2,7 @@ package me.polyubomu.smarthome.room;
 
 import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.EnableableDevice;
+import me.polyubomu.smarthome.device.decorator.impl.EnergySavingDecorator;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
@@ -44,14 +45,15 @@ public class RoomFacade {
         disabledDevices
                 .stream()
                 .filter(device -> device instanceof SecurityCamera)
-                .forEach(Device::operate);
+                .forEach(device -> System.out.println(device.operate()));
     }
 
     public void activateStandaloneMode() {
         List<Device> enabledDevices = getDevices(true);
         List<Device> disabledDevices = getDevices(false);
 
-        enabledDevices.forEach(Device::operate);
+        enabledDevices
+                .forEach(device -> System.out.println(device.operate()));
 
         activateSecuritySystem(disabledDevices);
 
@@ -67,14 +69,26 @@ public class RoomFacade {
 
         activateSecuritySystem(disabledDevices);
 
-        for (Device device : enabledDevices) {
-            if (device instanceof Lightbulb)
-                device.operate();
+        for (Device device : allDevices) {
+            if (device instanceof Thermostat) {
+                ((Thermostat) device).setTemperature(20f);
+            }
         }
 
-        for (Device device : allDevices) {
-            if (device instanceof Thermostat)
-                ((Thermostat) device).setTemperature(20f);
+        for (Device device : disabledDevices) {
+            if (device instanceof Thermostat) {
+                device = new EnergySavingDecorator(device);
+                System.out.println(device.operate());
+            }
+        }
+
+        for (Device device : enabledDevices) {
+            if (device instanceof Lightbulb lightbulb) {
+                System.out.println(lightbulb.operate());
+            }
+            if (device instanceof MusicPlayer musicPlayer) {
+                System.out.println(musicPlayer.operate());
+            }
         }
 
         enabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
@@ -99,9 +113,9 @@ public class RoomFacade {
                 .toList();
 
         disabledMusicPlayers.forEach(device -> {
-                    device.operate();
                     ((MusicPlayer) device).setMusic(music);
-                });
+                    System.out.println(device.operate());
+        });
 
         enabledMusicPlayers
                 .forEach(device -> ((MusicPlayer) device).setMusic(music));

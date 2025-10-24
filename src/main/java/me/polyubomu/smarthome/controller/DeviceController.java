@@ -1,6 +1,7 @@
 package me.polyubomu.smarthome.controller;
 
 import me.polyubomu.smarthome.device.Device;
+import me.polyubomu.smarthome.device.EnableableDevice;
 import me.polyubomu.smarthome.device.factory.DeviceFactory;
 import me.polyubomu.smarthome.device.factory.DeviceFactoryRegistry;
 import me.polyubomu.smarthome.service.DeviceService;

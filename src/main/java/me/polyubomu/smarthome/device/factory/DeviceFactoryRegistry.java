@@ -1,6 +1,5 @@
 package me.polyubomu.smarthome.device.factory;
 
-import me.polyubomu.smarthome.device.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
