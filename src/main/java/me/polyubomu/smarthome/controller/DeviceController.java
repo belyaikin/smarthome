@@ -2,6 +2,7 @@ package me.polyubomu.smarthome.controller;
 
 import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.factory.DeviceFactory;
+import me.polyubomu.smarthome.device.factory.DeviceFactoryRegistry;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public final class DeviceController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private DeviceFactoryRegistry factoryRegistry;
 
     @ShellMethod(key = "devices")
     public String allDevices(@ShellOption(defaultValue = "") Long roomId) {
@@ -57,7 +61,8 @@ public final class DeviceController {
             @ShellOption(help = "The type of device, for example 'lightbulb'") String type,
             @ShellOption(help = "Name of new device") String name,
             @ShellOption(help = "Room ID that device will be assigned to") Long roomId) {
-        Device device = DeviceFactory.createDevice(type);
+
+        Device device = factoryRegistry.getFactory(type).createDevice();
 
         device.setName(name);
         device.setRoom(roomService.get(roomId));
