@@ -3,17 +3,13 @@ package me.polyubomu.smarthome.device.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import me.polyubomu.smarthome.device.EnableableDevice;
 
 @Entity
 @Table(name = "lightbulbs")
-@NoArgsConstructor
-@Getter
-@Setter
 public class Lightbulb extends EnableableDevice {
+    public Lightbulb() {}
+
     @Column
     private String color;
 
@@ -33,5 +29,21 @@ public class Lightbulb extends EnableableDevice {
     @Override
     protected String getDisabledMessage() {
         return "Disabled lightbulb";
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public float getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(float brightness) {
+        this.brightness = brightness;
     }
 }

@@ -1,15 +1,11 @@
 package me.polyubomu.smarthome.device;
 
 import jakarta.persistence.*;
-import lombok.*;
 import me.polyubomu.smarthome.room.entity.Room;
 
 @Entity
 @Table(name = "devices")
 @Inheritance(strategy = InheritanceType.JOINED)
-@NoArgsConstructor
-@Getter
-@Setter
 public abstract class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +18,26 @@ public abstract class Device {
     private Room room;
 
     public abstract String operate();
+
+    public Device() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 }

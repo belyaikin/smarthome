@@ -3,19 +3,15 @@ package me.polyubomu.smarthome.device.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import me.polyubomu.smarthome.device.EnableableDevice;
 
 @Entity
 @Table(name="thermostats")
-@NoArgsConstructor
-@Getter
-@Setter
 public class Thermostat extends EnableableDevice {
     @Column
     private float temperature;
+
+    public Thermostat() {}
 
     @Override
     protected String getEnabledMessage() {
@@ -25,5 +21,13 @@ public class Thermostat extends EnableableDevice {
     @Override
     protected String getDisabledMessage() {
         return "Disabling the thermostat (" + getId() + ")";
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
     }
 }

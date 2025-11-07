@@ -3,17 +3,15 @@ package me.polyubomu.smarthome.device.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
 import me.polyubomu.smarthome.device.EnableableDevice;
 
 @Entity
 @Table(name = "music_players")
-@NoArgsConstructor
-@Getter
-@Setter
 public class MusicPlayer extends EnableableDevice {
     @Column
     private String music;
+
+    public MusicPlayer() {}
 
     @Override
     protected String getEnabledMessage() {
@@ -26,5 +24,13 @@ public class MusicPlayer extends EnableableDevice {
     @Override
     protected String getDisabledMessage() {
         return "Stopped playing " + music;
+    }
+
+    public String getMusic() {
+        return music;
+    }
+
+    public void setMusic(String music) {
+        this.music = music;
     }
 }

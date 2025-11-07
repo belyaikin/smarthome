@@ -2,16 +2,18 @@ package me.polyubomu.smarthome.device;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import lombok.Getter;
 
 @MappedSuperclass
-@Getter
 public abstract class EnableableDevice extends Device {
     @Column
     private boolean enabled;
 
     protected abstract String getEnabledMessage();
     protected abstract String getDisabledMessage();
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     @Override
     public String operate() {
