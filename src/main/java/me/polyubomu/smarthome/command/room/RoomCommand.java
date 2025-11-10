@@ -1,18 +1,17 @@
-package me.polyubomu.smarthome.controller;
+package me.polyubomu.smarthome.command.room;
 
 import me.polyubomu.smarthome.room.entity.Room;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.standard.ShellOption;
 
-@ShellComponent
-public final class RoomController {
+@Command(command = "room")
+public final class RoomCommand {
     @Autowired
     private RoomService roomService;
 
-    @ShellMethod(key = "rooms")
+    @Command(command = "list")
     public String allRooms() {
         System.out.println("All rooms:\n");
 
@@ -29,7 +28,7 @@ public final class RoomController {
         return rooms.toString();
     }
 
-    @ShellMethod(key = "add-room")
+    @Command(command = "add")
     public String addRoom(@ShellOption(help = "Room's name") String name) {
         final Room createdRoom = roomService.add(name);
 

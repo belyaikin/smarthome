@@ -1,21 +1,17 @@
-package me.polyubomu.smarthome.controller.device;
+package me.polyubomu.smarthome.command.device;
 
 import me.polyubomu.smarthome.device.entity.Thermostat;
 import me.polyubomu.smarthome.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.standard.ShellOption;
 
-@ShellComponent
-public final class ThermostatController {
+@Command(command = "thermostat")
+public final class ThermostatCommand {
     @Autowired
     public DeviceService service;
 
-    @ShellMethod(
-            key = "set-temperature",
-            value = "Changes the temperature on thermostat"
-    )
+    @Command(command = "temperature")
     public String changeTemperature(
             @ShellOption(help = "Thermostat's ID")  Long id,
             @ShellOption(help = "New temperature") float newTemperature) {
