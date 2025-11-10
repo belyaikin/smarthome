@@ -2,7 +2,6 @@ package me.polyubomu.smarthome.room;
 
 import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.EnableableDevice;
-import me.polyubomu.smarthome.device.decorator.impl.EnergySavingDecorator;
 import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
@@ -77,7 +76,6 @@ public class RoomFacade {
 
         for (Device device : disabledDevices) {
             if (device instanceof Thermostat) {
-                device = new EnergySavingDecorator(device);
                 System.out.println(device.operate());
             }
         }
