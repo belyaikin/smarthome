@@ -1,18 +1,17 @@
-package me.polyubomu.smarthome.controller;
+package me.polyubomu.smarthome.command.device;
 
 import me.polyubomu.smarthome.device.Device;
-import me.polyubomu.smarthome.device.EnableableDevice;
-import me.polyubomu.smarthome.device.factory.DeviceFactory;
 import me.polyubomu.smarthome.device.factory.DeviceFactoryRegistry;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-@ShellComponent
-public final class DeviceController {
+@Command(command = "device")
+public final class DeviceCommand {
     @Autowired
     private DeviceService deviceService;
 
@@ -22,7 +21,7 @@ public final class DeviceController {
     @Autowired
     private DeviceFactoryRegistry factoryRegistry;
 
-    @ShellMethod(key = "devices")
+    @Command(command = "list")
     public String allDevices(@ShellOption(defaultValue = "") Long roomId) {
         StringBuilder devices = new StringBuilder();
 
@@ -54,10 +53,7 @@ public final class DeviceController {
         return devices.toString();
     }
 
-    @ShellMethod(
-            key = "add-device",
-            value = "Creates and registers new device"
-    )
+    @Command(command = "add")
     public String addDevice(
             @ShellOption(help = "The type of device, for example 'lightbulb'") String type,
             @ShellOption(help = "Name of new device") String name,
@@ -76,7 +72,7 @@ public final class DeviceController {
                 + createdDevice.getId();
     }
 
-    @ShellMethod
+    @Command(command = "operate")
     public String operate(@ShellOption Long id) {
         return id + ": " + deviceService.operate(id);
     }
