@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import me.polyubomu.smarthome.device.EnableableDevice;
+import me.polyubomu.smarthome.device.visitor.DeviceVisitor;
 
 @Entity
 @Table(name = "lightbulbs")
@@ -45,5 +46,10 @@ public class Lightbulb extends EnableableDevice {
 
     public void setBrightness(float brightness) {
         this.brightness = brightness;
+    }
+
+    @Override
+    public void accept(DeviceVisitor visitor){
+        visitor.visit(this);
     }
 }

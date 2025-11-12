@@ -2,6 +2,7 @@ package me.polyubomu.smarthome.device;
 
 import jakarta.persistence.*;
 import me.polyubomu.smarthome.room.entity.Room;
+import me.polyubomu.smarthome.device.visitor.DeviceVisitor;
 
 @Entity
 @Table(name = "devices")
@@ -18,6 +19,7 @@ public abstract class Device {
     private Room room;
 
     public abstract String operate();
+    public abstract void accept(DeviceVisitor visitor);
 
     public Device() {}
 
