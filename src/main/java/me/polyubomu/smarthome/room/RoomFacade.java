@@ -24,7 +24,7 @@ public class RoomFacade {
     private List<Device> getDevices(boolean enabled) {
         return deviceService.getAll()
                 .stream()
-                .filter(device -> ((EnableableDevice) device).isEnabled())
+                .filter(device -> ((EnableableDevice) device).isEnabled() == enabled)
                 .toList();
     }
 
