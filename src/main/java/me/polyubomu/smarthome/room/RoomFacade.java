@@ -6,6 +6,7 @@ import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
+import me.polyubomu.smarthome.device.visitor.NightModeVisitor;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,29 +66,13 @@ public class RoomFacade {
         List<Device> disabledDevices = getDevicesInRoom(roomId, false);
 
         List<Device> allDevices = getDevicesInRoom(roomId);
-
+        NightModeVisitor nightModeVisitor = new NightModeVisitor();
         activateSecuritySystem(disabledDevices);
 
         for (Device device : allDevices) {
-            if (device instanceof Thermostat) {
-                ((Thermostat) device).setTemperature(20f);
-            }
+            device.accept(nightModeVisitor);
         }
 
-        for (Device device : disabledDevices) {
-            if (device instanceof Thermostat) {
-                System.out.println(device.operate());
-            }
-        }
-
-        for (Device device : enabledDevices) {
-            if (device instanceof Lightbulb lightbulb) {
-                System.out.println(lightbulb.operate());
-            }
-            if (device instanceof MusicPlayer musicPlayer) {
-                System.out.println(musicPlayer.operate());
-            }
-        }
 
         enabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
         disabledDevices.forEach(device -> deviceService.saveOrUpdate(device));
