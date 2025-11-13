@@ -1,0 +1,57 @@
+1762952151785:help
+1762952170664:room list
+1762952186097:room add first
+1762952226950:device add light
+1762952261455:device add
+1762952270328:device add lightbulb name 1
+1762952333377:lightbulb color red
+1762952351029:lightbulb color
+1762952360609:lightbulb color 1
+1762952374023:lightbuilb color red 1
+1762952381495:lightbulb color red 1
+1762952386440:lightbulb color 1 red
+1762952390684:help
+1762952399586:mode night
+1762952402761:mode night 1
+1762952480889:room list
+1762952905171:git pull
+1762964239263:help
+1762966887611:room list
+1762966892871:device lsit
+1762966895189:device list
+1762966899351:device list 1
+1762967143755:help
+1762967149705:mode night
+1762967153282:mode night 1
+1762968801361:help
+1762968808132:mode party
+1762968813782:mode party 1 music
+1762968820388:help
+1762968825517:device add
+1762968837052:device add musicplayer
+1762968970114:device add music 1 name
+1762968980100:device add musicPlayer 1 name
+1763056061206:help
+1763056108866:device add thermostat
+1763056111897:device add
+1763056122715:device add 1 thermostat thermo
+1763056133755:device add thermostat thermo 1
+1763056157362:device add securityCamera camera 1
+1763056181458:device add musicPlayer music 1
+1763056189099:deivce add music music
+1763056195308:device add music music 1
+1763056233129:device add musicplayer music 1
+1763056251028:deivce list
+1763056252982:help
+1763056259833:device list
+1763056263208:device list 1
+1763056739932:hhelp
+1763056742255:help
+1763056752363:device add musicplayer player 1
+1763056798641:mode party
+1763056805144:mode party rook 1
+1763056810459:mode party 1 rook
+1763056861473:mode party
+1763056871393:help
+1763056878729:mode night
+1763056881169:mode night 1

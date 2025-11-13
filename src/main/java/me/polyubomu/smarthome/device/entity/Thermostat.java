@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import me.polyubomu.smarthome.device.EnableableDevice;
+import me.polyubomu.smarthome.device.visitor.DeviceVisitor;
 
 @Entity
 @Table(name="thermostats")
@@ -14,12 +15,12 @@ public class Thermostat extends EnableableDevice {
     public Thermostat() {}
 
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         return "Enabling the thermostat (" + getId() + ") with temperature " + temperature + " celsius";
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Disabling the thermostat (" + getId() + ")";
     }
 
@@ -29,5 +30,10 @@ public class Thermostat extends EnableableDevice {
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
+    }
+
+    @Override
+    public void accept(DeviceVisitor visitor){
+        visitor.visit(this);
     }
 }

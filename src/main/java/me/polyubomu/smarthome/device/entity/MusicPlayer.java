@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import me.polyubomu.smarthome.device.EnableableDevice;
+import me.polyubomu.smarthome.device.visitor.DeviceVisitor;
 
 @Entity
 @Table(name = "music_players")
@@ -14,7 +15,7 @@ public class MusicPlayer extends EnableableDevice {
     public MusicPlayer() {}
 
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         if (music.isEmpty() || music.isBlank()) {
             return "Please specify a song!";
         }
@@ -22,7 +23,7 @@ public class MusicPlayer extends EnableableDevice {
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Stopped playing " + music;
     }
 
@@ -32,5 +33,10 @@ public class MusicPlayer extends EnableableDevice {
 
     public void setMusic(String music) {
         this.music = music;
+    }
+
+    @Override
+    public void accept(DeviceVisitor visitor){
+        visitor.visit(this);
     }
 }

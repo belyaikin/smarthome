@@ -8,8 +8,8 @@ public abstract class EnableableDevice extends Device {
     @Column
     private boolean enabled;
 
-    protected abstract String getEnabledMessage();
-    protected abstract String getDisabledMessage();
+    public abstract String getEnabledMessage();
+    public abstract String getDisabledMessage();
 
     public boolean isEnabled() {
         return enabled;
@@ -25,5 +25,9 @@ public abstract class EnableableDevice extends Device {
             enabled = true;
             return getEnabledMessage();
         }
+    }
+
+    public void setEnabled(boolean b) {
+        this.enabled = b;
     }
 }
