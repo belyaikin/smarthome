@@ -7,6 +7,7 @@ import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
 import me.polyubomu.smarthome.device.visitor.NightModeVisitor;
+import me.polyubomu.smarthome.device.visitor.PartyModeVisitor;
 import me.polyubomu.smarthome.service.DeviceService;
 import me.polyubomu.smarthome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,34 +81,15 @@ public class RoomFacade {
     }
 
     public void activatePartyMode(Long roomId, String music) {
-        List<Device> disabledMusicPlayers = getDevicesInRoom(roomId, false)
-                .stream()
-                .filter(device -> device instanceof MusicPlayer)
-                .toList();
+        PartyModeVisitor partyModeVisitor = new PartyModeVisitor(music);  // Create the visitor with the specified music
 
-        List<Device> enabledMusicPlayers = getDevicesInRoom(roomId, false)
-                .stream()
-                .filter(device -> device instanceof MusicPlayer)
-                .toList();
+        // Get all devices in the room
+        List<Device> devicesInRoom = getDevicesInRoom(roomId);
 
-        List<Device> lightbulbs = getDevicesInRoom(roomId)
-                .stream()
-                .filter(device -> device instanceof Lightbulb)
-                .toList();
+        // Operate on each device using the PartyModeVisitor
+        devicesInRoom.forEach(device -> device.accept(partyModeVisitor));  // Each device accepts the visitor
 
-        disabledMusicPlayers.forEach(device -> {
-                    ((MusicPlayer) device).setMusic(music);
-                    System.out.println(device.operate());
-        });
-
-        enabledMusicPlayers
-                .forEach(device -> ((MusicPlayer) device).setMusic(music));
-
-        lightbulbs
-                .forEach(device -> ((Lightbulb) device).setBrightness(1f));
-
-        disabledMusicPlayers.forEach(musicPlayer -> deviceService.saveOrUpdate(musicPlayer));
-        enabledMusicPlayers.forEach(musicPlayer -> deviceService.saveOrUpdate(musicPlayer));
-        lightbulbs.forEach(lightbulb -> deviceService.saveOrUpdate(lightbulb));
+        // Save the updated devices
+        devicesInRoom.forEach(device -> deviceService.saveOrUpdate(device));
     }
 }
