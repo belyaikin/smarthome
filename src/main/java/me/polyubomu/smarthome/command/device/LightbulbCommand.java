@@ -1,6 +1,6 @@
 package me.polyubomu.smarthome.command.device;
 
-import me.polyubomu.smarthome.device.entity.Lightbulb;
+import me.polyubomu.smarthome.device.lightbulb.entity.Lightbulb;
 import me.polyubomu.smarthome.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.command.annotation.Command;

@@ -2,7 +2,7 @@ package me.polyubomu.smarthome.room;
 
 import me.polyubomu.smarthome.device.Device;
 import me.polyubomu.smarthome.device.EnableableDevice;
-import me.polyubomu.smarthome.device.entity.Lightbulb;
+import me.polyubomu.smarthome.device.lightbulb.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
