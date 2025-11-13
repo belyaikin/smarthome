@@ -15,7 +15,7 @@ public class MusicPlayer extends EnableableDevice {
     public MusicPlayer() {}
 
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         if (music.isEmpty() || music.isBlank()) {
             return "Please specify a song!";
         }
@@ -23,7 +23,7 @@ public class MusicPlayer extends EnableableDevice {
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Stopped playing " + music;
     }
 

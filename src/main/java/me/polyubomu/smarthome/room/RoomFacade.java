@@ -6,6 +6,9 @@ import me.polyubomu.smarthome.device.entity.Lightbulb;
 import me.polyubomu.smarthome.device.entity.MusicPlayer;
 import me.polyubomu.smarthome.device.entity.SecurityCamera;
 import me.polyubomu.smarthome.device.entity.Thermostat;
+import me.polyubomu.smarthome.device.strategy.DeviceContextOperate;
+import me.polyubomu.smarthome.device.strategy.DeviceOperationStrategy;
+import me.polyubomu.smarthome.device.strategy.TurnOnStrategy;
 import me.polyubomu.smarthome.device.visitor.NightModeVisitor;
 import me.polyubomu.smarthome.device.visitor.PartyModeVisitor;
 import me.polyubomu.smarthome.service.DeviceService;
@@ -49,12 +52,16 @@ public class RoomFacade {
                 .forEach(device -> System.out.println(device.operate()));
     }
 
+    public void operateDevice(Device device, DeviceOperationStrategy strategy){
+        DeviceContextOperate context = new DeviceContextOperate(strategy);
+        System.out.println(context.operate(device));
+    }
+
     public void activateStandaloneMode() {
         List<Device> enabledDevices = getDevices(true);
         List<Device> disabledDevices = getDevices(false);
 
-        enabledDevices
-                .forEach(device -> System.out.println(device.operate()));
+        enabledDevices.forEach(device -> operateDevice(device, new TurnOnStrategy()));
 
         activateSecuritySystem(disabledDevices);
 
@@ -81,15 +88,12 @@ public class RoomFacade {
     }
 
     public void activatePartyMode(Long roomId, String music) {
-        PartyModeVisitor partyModeVisitor = new PartyModeVisitor(music);  // Create the visitor with the specified music
+        PartyModeVisitor partyModeVisitor = new PartyModeVisitor(music);
 
-        // Get all devices in the room
         List<Device> devicesInRoom = getDevicesInRoom(roomId);
 
-        // Operate on each device using the PartyModeVisitor
-        devicesInRoom.forEach(device -> device.accept(partyModeVisitor));  // Each device accepts the visitor
+        devicesInRoom.forEach(device -> device.accept(partyModeVisitor));
 
-        // Save the updated devices
         devicesInRoom.forEach(device -> deviceService.saveOrUpdate(device));
     }
 }

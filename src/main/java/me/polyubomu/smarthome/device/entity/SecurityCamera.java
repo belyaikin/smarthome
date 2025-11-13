@@ -9,12 +9,12 @@ import me.polyubomu.smarthome.device.visitor.DeviceVisitor;
 @Table(name = "security_cameras")
 public class SecurityCamera extends EnableableDevice {
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         return "Enabled security camera in room " + getRoom();
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Disabled security camera in room " + getRoom();
     }
 

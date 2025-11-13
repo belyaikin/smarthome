@@ -23,12 +23,12 @@ public class Lightbulb extends EnableableDevice {
     }
 
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         return "Enabled lightbulb";
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Disabled lightbulb";
     }
 
