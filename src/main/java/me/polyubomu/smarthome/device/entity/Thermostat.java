@@ -15,12 +15,12 @@ public class Thermostat extends EnableableDevice {
     public Thermostat() {}
 
     @Override
-    protected String getEnabledMessage() {
+    public String getEnabledMessage() {
         return "Enabling the thermostat (" + getId() + ") with temperature " + temperature + " celsius";
     }
 
     @Override
-    protected String getDisabledMessage() {
+    public String getDisabledMessage() {
         return "Disabling the thermostat (" + getId() + ")";
     }
 
